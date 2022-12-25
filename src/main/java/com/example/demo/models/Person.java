@@ -1,9 +1,15 @@
 package com.example.demo.models;
 
+import com.example.demo.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Table(name = "person")
@@ -12,8 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue
+    private UUID id;
 
     @Column(name = "fullname", nullable = false)
     private String fullName;
@@ -23,4 +29,13 @@ public class Person {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @CreationTimestamp
+    private Timestamp createdAt;
+
+    @UpdateTimestamp
+    private Timestamp updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
